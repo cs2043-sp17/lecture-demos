@@ -67,6 +67,14 @@ The solution is being released with the demo, but do try and write it on your ow
 
 1. Start by working with just one of them.  For example, only focus on creating `home.html`.
 2. Figure out how to change the `navbar` described above, just having it print to the console.
+    - Naive first approach:
+      
+      ```bash
+      sed 's/<li><a href="home.html">/<li class="current"><a href="home.html">/g' base.html
+      ```
+    
+    - Naive because although it works, we will ultimately have to change it to be more flexible.
+        - It has `home` hard-coded in there!
 3. When you think you have it, redirect that to `home.html` and open it in your browser.  If `Home` at the top is highlighted in red, then you did this correctly!
 4. Figure out how to replace the `[[[###]]]` with `home`.
 5. Figure out how to execute two replacements with `sed`.
@@ -80,9 +88,34 @@ The solution is being released with the demo, but do try and write it on your ow
    - One solution is to write `'Hi '"$FOO"', how are you?'`
    - I told you, `bash` is rarely pretty.
    - <a href="http://stackoverflow.com/a/13802438/3814202" target="_blank">This SO answer</a> gives a good explanation of why.  Single quotes preserve everything!
+   
+### Need help with the loop?
 
-### When you are Finished
+In this script, assume that `base.html` exists in the current directory.  To get started, begin by creating `nav.sh` with the following contents:
 
-Go ahead and `git add` your `nav.sh` script, as well as the beautiful new html files you have generated automatically!
+```bash
+#!/usr/bin/env bash
 
-Follow it all up with a `git commit` and `git push` to store your work online!
+# Iterate over every desired page
+for page in {home,about,work,play}; do
+    # This does nothing other than create the files to get you started,
+    # performing a meaning replacement of 'html' with 'html'.
+    # We assume base.html is in the same directory, and use that as the
+    # input file to the first `sed`.  We pipe to another meaningless
+    # replacement to show you how to format this correctly, redirecting
+    # final output after all replacements to $page.html`
+    sed 's/html/html/g' base.html | sed 's/li/li/g' > "$page.html"
+done
+```
+
+Now make it executable (`chmod +x nav.sh`), and run it
+
+```bash
+$ ./nav.sh
+```
+
+There should be four new files in the current directory, `home.html`, `about.html`, `work.html`, and `play.html`.  Your task is to complete the script so that the nav bar works as expected, and all `[[[###]]]` get replaced appropriately.
+
+As you develop, open `home.html` in a browser.  You should be able to run the script, refresh, and see your changes!
+
+As a reminder, the final redirection `> "$page.html"` happens last.  So if you pipe to multiple `sed` commands, be sure to keep the redirection at the end of the pipeline!
