@@ -4,10 +4,11 @@
 # save results, ignore stderr
 contents="$(ls -al "$1" 2>/dev/null)"
 
-# If there is no real file, exit code is _2_
-if [[ $? -eq 2 ]]; then
+# Bad: we never save $? and this can cause problems
+if [[ $? -ne 0 ]]; then
     echo "Error reading the file..."
 fi
 if [[ $? -eq 0 ]]; then
+    # in the case where we gave a bad filename, this still prints!
     echo "File information: $contents"
 fi

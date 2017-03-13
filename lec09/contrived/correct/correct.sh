@@ -4,10 +4,11 @@
 # save results, ignore stderr
 contents="$(ls -al "$1" 2>/dev/null)"
 
-# If there is no real file, exit code is _2_
+# Good: we need to save the exit code of `ls` before
+# we can test against it multiple times!
 ls_exit=$?
-if [[ $ls_exit -eq 0 ]]; then
-    echo "File information: $contents"
-elif [[ $ls_exit -eq 2 ]]; then
+if [[ $ls_exit -ne 0 ]]; then
     echo "Error reading the file..."
+elif [[ $ls_exit -eq 0 ]]; then
+    echo "File information: $contents"
 fi
