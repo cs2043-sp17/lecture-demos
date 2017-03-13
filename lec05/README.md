@@ -28,7 +28,7 @@ In the most basic form, you have two options for writing to files.
    This is filechemy at its finest.
    ```
 
-2. You will invariably need to append for this assignment, done with two `>>`.
+2. You will invariably need to append in some cases, done with two `>>`.
 
    ```bash
    # Append a line to the same file.
@@ -140,5 +140,5 @@ $ ./mixed_messages.sh > all_output.txt 2>&1
 $ ./mixed_messages.sh &> all_output.txt
 ```
 
-That is, if you are **good** you print error messages to STDERR so that users of your
+That is, if you are **good** you print error messages to `STDERR` so that users of your
 scripts can use the redirections they know and love to distinguish error messages.
