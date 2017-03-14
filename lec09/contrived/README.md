@@ -38,6 +38,21 @@ Error reading the file...
 File information:
 ```
 
+**Oops!**  The expected output of all of these examples is supposed to be:
+
+1. If we give it a file that exists: it simply prints the results of `ls -al` on that
+   file with the string `File information:` at the front.
+2. If we did **not** give a valid file, or we do not have permission to read the file,
+   then it should _only_ print `Error reading the file...`.
+
+In the above _broken_ execution, we received both messages.  The final line
+`File information:` with nothing following it is hardly useful, since there was no
+file to present information about.
+
+In some of the examples, _too much_ gets printed.  In some of the examples, _nothing_
+gets printed even when it should!  All of these results from just forgetting to save
+the exit code in a variable.
+
 ## The Behavior is Unpredictable -- What do I do?
 
 Look at the code for each example and accompanying comments in the file.  You will see
