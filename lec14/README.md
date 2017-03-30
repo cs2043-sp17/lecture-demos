@@ -193,9 +193,8 @@ Now edit it with your favorite text editor to include
 
 ```
 Host csug03
-Hostname csug03.csuglab.cornell.edu
-User <NetID>
-ForwardAgent yes
+    Hostname csug03.csuglab.cornell.edu
+    User <NetID>
 ```
 
 Breakdown:
@@ -203,11 +202,12 @@ Breakdown:
 - `Host`: what you want to type each time, `ssh Host`
 - `Hostname`: what `ssh` will actually use when you say `ssh Host`
 - `User`: your username on the _remote_ server
-- `ForwardAgent`: use the `ssh` keys we setup
+- You don't _have_ to indent things, but I think it makes your life easier.
 
 **Pro-Tip**: this was only an _alias_ for us to be able to `ssh` into `csug03`.  You may
 as well setup the same information for `csug{01..10}`.  Just replace `csug03` with the
-right thing on the first two lines for each one.
+right thing on the first two lines for each one.  Or follow the directions
+[at the very bottom of this document](#the-full-ssh-config-file-for-csug).
 
 With all that, you should now be able to just execute
 
@@ -295,3 +295,66 @@ It makes sense: you are logging into a completely different computer!  I defer t
 [lecture07 demo](../lec07) for a reminder of what goes where.
 
 **Make sure you protect your `ssh` keys, it's as simple as [one command](#the-last-step)**.
+
+## The Full `ssh` Config File for CSUG
+
+You can copy-paste this if you like.  If you are using Sublime Text, this is an
+excellent opportunity to practice some `<ctrl>+D` magic!
+
+1. Paste the below into your `~/.ssh/config` file:
+
+   ```bash
+   # csug01
+   Host csug01
+       Hostname csug01.csuglab.cornell.edu
+       User <NetID>
+
+   # csug02
+   Host csug02
+       Hostname csug02.csuglab.cornell.edu
+       User <NetID>
+
+   # csug03
+   Host csug03
+       Hostname csug03.csuglab.cornell.edu
+       User <NetID>
+
+   # csug04
+   Host csug04
+       Hostname csug04.csuglab.cornell.edu
+       User <NetID>
+
+   # csug05
+   Host csug05
+       Hostname csug05.csuglab.cornell.edu
+       User <NetID>
+
+   # csug06
+   Host csug06
+       Hostname csug06.csuglab.cornell.edu
+       User <NetID>
+
+   # csug07
+   Host csug07
+       Hostname csug07.csuglab.cornell.edu
+       User <NetID>
+
+   # csug08
+   Host csug08
+       Hostname csug08.csuglab.cornell.edu
+       User <NetID>
+
+   # csug09
+   Host csug09
+       Hostname csug09.csuglab.cornell.edu
+       User <NetID>
+
+   # csug10
+   Host csug10
+       Hostname csug10.csuglab.cornell.edu
+       User <NetID>
+   ```
+
+2. Highlight the first `<NetID>` under `csug01` with your cursor.  Hit `<ctrl>+D`
+   (`control` and `D` key at same time) until all of them are highlighted.  Now simply
+   type _your netID_, and save it -- done!  Hit `escape` to get just one cursor again.
