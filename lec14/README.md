@@ -71,7 +71,7 @@ for the first time.  See the
 ### What is `CSUG` Actually Like?
 
 There is a shared filesystem that is synced between 10 redundant nodes.  In this
-configuration, you files you make on `csug01` will be available when you login to
+configuration, the files you make on `csug01` will be available when you login to
 `csug04`, as well as `csug09`.  The valid hosts are `csug{01..10}` (remember the curly
 braces make a range, paste this in your terminal `echo csug{01..10}`).
 
@@ -156,11 +156,11 @@ The steps are simple enough:
    $ cat ~/.ssh/id_rsa.pub | ssh <NetID>@csug03.csuglab.cornell.edu 'cat >> .ssh/authorized_keys'
    ```
 
-   At this point, you have now registered your SSH key with Totient.  You can now
+   At this point, you have now registered your SSH key with CSUG.  You can now
    use passwordless login:
 
    ```bash
-   $ ssh <NetID>csug03.csuglab.cornell.edu
+   $ ssh <NetID>@csug03.csuglab.cornell.edu
    ```
 
    **Still Asking for a Password?** This is probably because your `ssh` agent is not
@@ -174,12 +174,6 @@ The steps are simple enough:
    # note there is no .pub extension, this is the actual key
    $ ssh-add ~/.ssh/id_rsa
 
-   ```
-
-4. Make sure your local `.ssh` directory is safe as well.
-
-   ```bash
-   $ chmod -R 700 ~/.ssh
    ```
 
 ### The `ssh` config File
@@ -224,6 +218,16 @@ $ ssh csug03
 and login to the CSUG servers.  Every now and then you may be asked to enter the
 password for your actual SSH key, but this will not be that frequent.
 
+### The Last Step
+
+Make sure your local `.ssh` has the appropriate permissions.  These files are
+fundamentally important.  If somebody else can get your file...then they can also login
+to CSUG under your name **without needing your password**.  You have been warned.
+
+```bash
+$ chmod -R 700 ~/.ssh
+```
+
 ## Terminal multiplexing with `tmux`
 
 Terminal multiplexing is fantastically convenient.  In terms of logging into a remote
@@ -237,7 +241,7 @@ host, what it means is
 It will definitely take some getting used to, but I promise it is worth the effort.
 I defer to Daniel Miessler's excellent tutorial
 
-> ## [A `tmux` Primer](https://danielmiessler.com/study/tmux/#gs.R_UauPQ)
+> ### [A `tmux` Primer](https://danielmiessler.com/study/tmux/#gs.R_UauPQ)
 
 Included in this demo is [Sean Bell's excellent `.tmux.conf`][sean], which is the "dotfile"
 associated with `tmux` (like the `.ssh/config` is to `ssh`, and `.bashrc` is to `bash`).
@@ -266,7 +270,7 @@ server after a certain amount of time.
 If you cloned this repository:
 
 ```bash
-$ cp lecture-demos/lec14/.tmux.conf ~/.tmux.conf
+$ cp /path/to/lecture-demos/lec14/.tmux.conf ~/.tmux.conf
 ```
 
 The next time you launch `tmux` it will use this file.  Alternatively,
@@ -289,3 +293,5 @@ version: **all of the configurations you have done on your local machine mean no
 
 It makes sense: you are logging into a completely different computer!  I defer to the
 [lecture07 demo](../lec07) for a reminder of what goes where.
+
+**Make sure you protect your `ssh` keys, it's as simple as [one command](#the-last-step)**.
